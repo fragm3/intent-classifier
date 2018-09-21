@@ -1,0 +1,137 @@
+.primary-text{
+    font-size: 25px;
+}
+
+.primary-header{
+    font-size: 35px;
+}
+
+.container{
+    margin: 30px;
+}
+
+.secondary-container{
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+.button-secondary {
+    border: 2px solid #555555;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button-secondary:hover {
+    background-color: #555555;
+    color: white;
+}
+
+.button-primary {
+    border: 2px solid #555555;
+    background-color: #555555;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button-primary:hover {
+    background-color: white;
+    color: black;
+    border: 2px solid white;
+}
+
+.classified-data-container {
+    display: flex;
+    justify-content: center;
+    width: 770px;
+    padding: 20px;
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.classified-data-container-parent{
+    overflow: hidden;
+}
+
+.content-classified-container{
+    margin: 10px;
+    width: 300px;
+}
+
+.classified-box-long{
+    height: 300px;
+
+}
+
+.classified-box, .classified-box-long {
+    border: 1px solid #c9c9c9;
+    padding: 10px;
+    width: 230px;
+}
+
+.text-centre{
+    text-align: center;
+}
+
+.input-textarea{
+    width: 200px;
+    height: 70px;
+    display: block;
+    resize: none;
+    padding: 10px;
+    margin: 0 auto;
+    font-size: 15px;
+}
+
+.trainClassfier-opacity{
+    opacity: 0.2;
+    filter: alpha(opacity=60);
+}
+
+.lds-dual-ring {
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    margin: 174px auto;
+}
+.lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 46px;
+    height: 46px;
+    margin: 1px;
+    border-radius: 50%;
+    border: 5px solid #dfc;
+    border-color: #dfc transparent #dfc transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+    transform: rotate(360deg);
+    }
+}
+
+.loader-container{
+    height: 400px
+}

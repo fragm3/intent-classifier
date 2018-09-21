@@ -1,0 +1,20 @@
+.AppContainer {
+    display: flex;
+    flex-direction: row wrap;
+    width: 100%;
+    justify-content: space-evenly
+}
+
+.trainClassifier {
+    flex: 3 1 auto;
+    opacity: 0.2;
+}
+
+.testClassifier {
+    flex: 1 1 auto;
+}
+
+.trainClassfier-opacity{
+    opacity: 0.2;
+    filter: alpha(opacity=60);
+}
