@@ -97,7 +97,7 @@ class Classifier extends Component{
         return(
             <div className = 'AppContainer'>
 
-                <div className="container">
+                <div className="trainClassifier container">
                     <div className="primary-header">
                         TRAIN YOUR CLASSIFIER
                     </div>

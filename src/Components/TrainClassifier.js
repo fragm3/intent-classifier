@@ -18,11 +18,6 @@ class TrainClassifier extends Component{
             startTraining: false,
             isTraining: false,
             isCSVParsed: false,
-            // csvData: [{class: 'Batman', samples: ['I am batman dfgh dfghjdfgh sdfghj', 'second]},
-            //         {class: 'Batman', samples: 'I am batma dfgh dfghjdfgh dfghj'},
-            //         {class: 'Batman', samples: 'I am batma dfgh dfghjdfgh dfghj'},
-            //         {class: 'Batman', samples: 'I am batma dfgh dfghjdfgh dfghj'},
-            //         {class: 'Batman', samples: 'I am batma dfgh dfghjdfghsdfghj'}]
             csvData: [{class: '', samples: ''}],
             X_train: '',
             Y_train: '',
@@ -80,7 +75,7 @@ class TrainClassifier extends Component{
     }
 
     startTrain = () => {
-
+        this.setState(() => {isTraining: true})
         tokenizer.fit_on_texts(this.state.X_train);
         const input = tokenizer.texts_to_matrix(this.state.X_train, 'tfidf');
         const output = binarizer.fit_transform(this.state.Y_train);
@@ -90,7 +85,6 @@ class TrainClassifier extends Component{
     }
 
     startTrainAgain = () => {
-        //this.setState({isFileUploaded: false, isTraining: false})
         this.setState(this.baseState)
         this.props.resetAllStates();
     }
@@ -107,9 +101,9 @@ class TrainClassifier extends Component{
                     <p className="class-heading text-centre">{`${data.class}`}</p>
                     <div>
                         <div className="classified-box-long">
-                            {sampleData = data.samples.map(sample => {
+                            {sampleData = data.samples.map((sample, idx) => {
                                 return(
-                                    <div style={{padding: '10px'}}>{sample}</div>
+                                    <div key ={idx} style={{padding: '10px'}}>{sample}</div>
                                 )
                             })}
                         </div>

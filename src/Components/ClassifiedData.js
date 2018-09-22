@@ -13,10 +13,6 @@ class ClassifiedData extends Component{
             startTraining: false,
             data: '',
             dataEdited: '',
-            //resultClass: 'Batman',
-            //resultAccuracy: '99%' 
-            // resultAccuracy: this.props.resultClass,
-            // resultClass: this.props.resultAccuracy
         }
     }
 
@@ -70,14 +66,13 @@ class ClassifiedData extends Component{
                         Write sentence to be analysed
                     </textarea>
                     <div >
-                        <button style={{margin: '30px auto'}} className = "button-primary" onClick={this.classifyData}>
+                        <button style={{margin: '30px auto'}} className = "btn btn-primary btn-lg" onClick={this.classifyData}>
                             Classify
                         </button>
                     </div>
                 </div>
             )
         }
-
 
         else if(this.props.resultAttained ===  false && this.state.isTrained === false){
             renderElement = (
