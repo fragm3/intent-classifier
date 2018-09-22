@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ClassifiedData from './ClassifiedData'
+import './style.css'
 
 class TestClassifier extends Component{
     constructor(props){
@@ -10,12 +11,13 @@ class TestClassifier extends Component{
     }
     render() {
         return(
-            <div className="container">
+            <div className="container test-container">
                 <div className="primary-header">
                     TEST YOUR CLASSIFIER
                 </div>
                 <div className="secondary-container">
                     <ClassifiedData
+                        resultAttained = {this.props.resultAttained}
                         triggerClassifierResult = {this.props.triggerClassifierResult}
                         getClassifyResult={this.props.getClassifyResult}
                         resultClass={this.props.resultClass}

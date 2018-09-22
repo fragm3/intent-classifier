@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import './style.css';
-import * as tf from '@tensorflow/tfjs';
 
 import Tokenizer from './helperClasses/Tokenizer';
-import LabelBinarizer from './helperClasses/LabelBinarizer';
 
 const tokenizer = new Tokenizer(2500);
-const binarizer = new LabelBinarizer();
 
 class ClassifiedData extends Component{
     constructor(props){
@@ -39,39 +36,50 @@ class ClassifiedData extends Component{
         var xs = tokenizer.texts_to_matrix([text], 'tfidf');
         debugger;
         this.props.getClassifyResult(xs);
-        this.setState({data : ''})
+        //this.setState({data : ''})
     }
-
-    // getDerivedStateFromProps(nextProps, prevState){
-    //     if(nextProps.resultAccuracy!==prevState.resultAccuracy){
-    //         return { resultClass: nextProps.resultClass, resultAccuracy: nextProps.resultAccuracy};
-    //    }
-    //    else return null;
-    //}
 
     render() {
         console.log(this.props.resultClass, "Result class")
         let renderElement = null;
-        if(this.props.triggerClassifierResult === true){
+        if(this.props.triggerClassifierResult === true && this.props.resultAttained === true){
             //this.setState({isTrained: true});
             renderElement = (
                 <div>
-                    <textarea className = "input-textarea" value={this.state.data} onChange={this.setData}>
+                    <textarea placeholder="Enter your sentence here" className = "input-textarea" value={this.state.data} onChange={this.setData}>
+                        Write sentence to be analysed
+                    </textarea>
+                    <div >
+                        <button style={{margin: '30px auto'}} className = "btn btn-primary btn-lg" onClick={this.classifyData}>
+                            Classify
+                        </button>
+                        <div className="result primary-text">Result</div>
+                        <div className = "result-container">
+                            <div className="btn result-class" style= {{margin: '5px'}}>{this.props.resultClass}</div>
+                            <div className="btn result-confidence" style= {{margin: '5px'}}>{this.props.resultAccuracy}</div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+        else if(this.props.triggerClassifierResult === true && this.props.resultAttained === false){
+            renderElement = (
+                <div>
+                    <textarea placeholder="Enter your sentence here" className = "input-textarea" value={this.state.data} onChange={this.setData}>
                         Write sentence to be analysed
                     </textarea>
                     <div >
                         <button style={{margin: '30px auto'}} className = "button-primary" onClick={this.classifyData}>
                             Classify
                         </button>
-                        <div style={{display: 'flex', justifyContent: 'spaceEvenly', alignContent: 'row'}}>
-                            <div className="classified-box" style= {{margin: '5px'}}>{this.props.resultClass}</div>
-                            <div className="classified-box" style= {{margin: '5px'}}>{this.props.resultAccuracy}</div>
-                        </div>
                     </div>
                 </div>
             )
         }
-        else if(this.state.isTrained === false){
+
+
+        else if(this.props.resultAttained ===  false && this.state.isTrained === false){
             renderElement = (
                 <p className="primary-text">Please train first</p>
             )
@@ -83,25 +91,6 @@ class ClassifiedData extends Component{
             )
         }
 
-        else{
-            renderElement = (
-                <div>
-                    <textarea className = "input-textarea" value={this.state.data} onChange={this.setData}>
-                        Write sentence to be analysed
-                    </textarea>
-                    <div >
-                        <button style={{margin: '30px auto'}} className = "button-primary" onClick={this.classifyData}>
-                            Classify
-                        </button>
-                        <div style={{display: 'flex', justifyContent: 'spaceEvenly', alignContent: 'row'}}>
-                            <div className="classified-box" style= {{margin: '5px'}}>{this.state.resultClass}</div>
-                            <div className="classified-box" style= {{margin: '5px'}}>{this.state.resultAccuracy}</div>
-                        </div>
-                    </div>
-
-                </div>
-            )
-        }
             return(
                 <div>
                     {renderElement}

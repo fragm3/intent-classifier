@@ -1,9 +1,18 @@
 .primary-text{
-    font-size: 25px;
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 1.5rem;
+    font-weight: 300;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    line-height: 1.20588em;
+    text-align: center;
 }
 
 .primary-header{
-    font-size: 35px;
+    font-size: 30px;
+    font-weight: 350;
+    white-space: nowrap;
+    letter-spacing: .7rem;
+    color: #1976d2;
 }
 
 .container{
@@ -74,16 +83,33 @@
 .content-classified-container{
     margin: 10px;
     width: 300px;
+    border-radius: 6px;
+    border: 1px solid #d9dde1;
+    cursor: hand;
+    padding: 20px 10px 10px;
+}
+
+.class-heading{
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 1.5rem;
+    font-weight: 400;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    line-height: 1.35417em;
 }
 
 .classified-box-long{
     height: 300px;
-
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 0.875rem;
+    font-weight: 400;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    line-height: 1.46429em;
+    height: 400px;
+    overflow: auto;
 }
 
 .classified-box, .classified-box-long {
-    border: 1px solid #c9c9c9;
-    padding: 10px;
+    padding: 15px;
     width: 230px;
 }
 
@@ -92,13 +118,15 @@
 }
 
 .input-textarea{
-    width: 200px;
-    height: 70px;
+    width: 400px;
+    height: 150px;
     display: block;
     resize: none;
-    padding: 10px;
+    padding: 20px;
     margin: 0 auto;
     font-size: 15px;
+    box-shadow: 0 0 10px 5px rgba(0,0,0,.04);
+    border: none;
 }
 
 .trainClassfier-opacity{
@@ -119,8 +147,8 @@
     height: 46px;
     margin: 1px;
     border-radius: 50%;
-    border: 5px solid #dfc;
-    border-color: #dfc transparent #dfc transparent;
+    border: 5px solid rgb(0, 0, 0);
+    border-color: rgb(0, 0, 0) transparent rgb(0, 0, 0) transparent;
     animation: lds-dual-ring 1.2s linear infinite;
 }
 @keyframes lds-dual-ring {
@@ -134,4 +162,101 @@
 
 .loader-container{
     height: 400px
+}
+
+
+.testclassfier-container{
+    height: 100vh;
+    width: 100%;
+    background-color: #FAFAFA;
+}
+
+.dropzone{
+    border: 2px dashed #C7CBCE;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.btn-outline-primary {
+    color: #1976d2;
+    background-color: transparent;
+    background-image: none;
+    border-color: #1976d2;
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #0062cc;
+    border-color: #005cbf;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    color: #fff;
+    background-color: #545b62;
+    border-color: #4e555b;
+}
+
+.btn-lg {
+    padding: .5rem 5rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: .3rem;
+}
+
+body{
+    font-weight: 300;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+.result-container{
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-evenly;
+    align-content: row;
+}
+
+.result-class{
+    color: #212529;
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.result-confidence{
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
 }

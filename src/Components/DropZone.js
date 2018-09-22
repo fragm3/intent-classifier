@@ -20,9 +20,15 @@ class DropZone extends Component{
             <div className="secondary-container">
                 <div className="primary-text">Drag and Drop your CSV file here,</div>
                 <div className="primary-text">or click to upload</div>
-                <div style={{margin: '10px auto', width: '203px', color: 'grey'}}>
-                    <ReactDropzone onDrop={this.onDrop}>
-                        <div style={{margin: '80px auto', width: '10px'}}>+</div>
+                <div style={{margin: '10px auto', width: '70%', color: 'grey'}}>
+                    <ReactDropzone className="dropzone" onDrop={this.onDrop}>
+                        <div style={{color: 'grey', margin: '80px auto', width: '150px'}}>
+                        <div>Drop your CSV file</div>
+                        <div style={{margin: '20px 0', fontSize: '10px'}}>OR</div>
+                        <button className='btn btn-outline-primary'>
+                            Browse File
+                        </button>
+                        </div>
                     </ReactDropzone>
                 </div>
             </div>

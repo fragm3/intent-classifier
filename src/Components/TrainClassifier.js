@@ -5,7 +5,6 @@ import './style.css';
 import Tokenizer from './helperClasses/Tokenizer';
 import LabelBinarizer from './helperClasses/LabelBinarizer';
 import CSVParser from './helperClasses/CSVParser';
-import Loader from 'react-loader-spinner';
 
 const tokenizer = new Tokenizer(2500);
 const binarizer = new LabelBinarizer();
@@ -59,26 +58,19 @@ class TrainClassifier extends Component{
                     var obj = {class: data[j][0], samples: data[j][1]};
                     dataArray.push(obj);
                 }
-
-                // var res = [];
-                // data.forEach((x) => {
-                //     if (res[x[0]]) {
-                //         res[x[0]].push(x[1]);
-                //     } else {
-                //     res[x[0]] = [x[1]];
-                //     }
-                // })
-
-                // var result = [];
-                // res.forEach1((x) => {
-                //     result.push({
-                //         class: x[0],
-                //         samples: x[1],
-                //     })
-                // })
-
-                this.setState({csvData: dataArray, isCSVParsed: true});
-                //this.setState({csvData: result, isCSVParsed: true});
+                var segAns = [];
+                dataArray.forEach((x) => {
+                    let obj = segAns.find(o => o.class === x.class);
+                    if(obj) obj.samples.push(x.samples)
+                    else{
+                        obj = {};
+                        obj.class = x.class;
+                        obj.samples = [];
+                        obj.samples.push(x.samples);
+                        segAns.push(obj);
+                    }
+                })
+                this.setState({csvData: segAns, isCSVParsed: true});
             };
         })(reader);
 
@@ -106,25 +98,26 @@ class TrainClassifier extends Component{
     render() {
         console.log(this.state.isTraining)
         let tabs= [];
+        let sampleData;
         if(this.state.csvData){
             if(this.state.isCSVParsed){
             tabs = this.state.csvData.map((data, i) => {
                 return (
                 <div key = {i} className="content-classified-container">
-                    <p className="text-centre">{`class ${i}`}</p>
-                    <div className="classified-box">
-                        <p className="text-centre">{`${data.class}`}</p>
-                    </div>
+                    <p className="class-heading text-centre">{`${data.class}`}</p>
                     <div>
-                        <p className="text-centre">Samples:</p>
                         <div className="classified-box-long">
-                            {data.samples}
+                            {sampleData = data.samples.map(sample => {
+                                return(
+                                    <div style={{padding: '10px'}}>{sample}</div>
+                                )
+                            })}
                         </div>
                     </div>
                 </div>
                 )
             })}
-            else if(this.state.isCSVParsed == false){
+            else if(this.state.isCSVParsed === false){
                 tabs = (
                     <div className="loader-container">
                     <div className="lds-dual-ring"></div>
@@ -147,8 +140,8 @@ class TrainClassifier extends Component{
                             {tabs}
                             </div>
                         </div>
-                        <button className = "button-primary" onClick={this.startTrain}>Start Training</button>
-                        <button className = "button-secondary" onClick={this.startTrainAgain}>Start Over</button>
+                        <button className = "btn btn-primary" onClick={this.startTrain}>Start Training</button>
+                        <button style = {{marginLeft: '10px'}} className = "btn btn-secondary" onClick={this.startTrainAgain}>Start Over</button>
                     </div>
                 )
             }
@@ -175,10 +168,7 @@ class TrainClassifier extends Component{
         }
 
         return(
-            <div className="container">
-                <div className="primary-header">
-                    TRAIN YOUR CLASSIFIER
-                </div>
+            <div>
                 {renderElement}
             </div>
         )

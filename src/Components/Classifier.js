@@ -18,6 +18,7 @@ class Classifier extends Component{
             triggerClassifierResult: false,
             resultClass: 'Class',
             resultAccuracy: 0,
+            resultAttained: false,
         }
         this.baseState = this.state;
     }
@@ -70,7 +71,7 @@ class Classifier extends Component{
         console.log("Index", idx)
         var top_predicted_class = binarizer.classes_[idx];
         //debugger;
-        this.setState({resultClass: top_predicted_class, resultAccuracy: confidence.toFixed(2)})
+        this.setState({resultClass: top_predicted_class, resultAccuracy: confidence.toFixed(2), resultAttained: true})
     }
 
     triggerResult = () => {
@@ -83,23 +84,37 @@ class Classifier extends Component{
         let renderTrainClassifier = null;
         if(this.state.addOnTopLoader){
             renderTrainClassifier = (
-                <div style={{margin: '200px auto', position: 'absolute', width: '60%', height: '70%'}}>
-                    <h1 style={{margin: '0 auto'}} className = "primary-text">Training</h1>
+                <div className="container">
+                <div className="lds-dual-ring"></div>
                 </div>
+            )
+        }
+        else{
+            renderTrainClassifier = (
+                <TrainClassifier resetAllStates = {this.resetAllStates} learner = {this.learner} className={`trainClassfier ${this.state.addOnTopLoader ? 'trainClassfier-opacity' : ''}`} />
             )
         }
         return(
             <div className = 'AppContainer'>
-                <div>
+
+                <div className="container">
+                    <div className="primary-header">
+                        TRAIN YOUR CLASSIFIER
+                    </div>
                     {renderTrainClassifier}
-                    <TrainClassifier resetAllStates = {this.resetAllStates} learner = {this.learner} className={`trainClassfier ${this.state.addOnTopLoader ? 'trainClassfier-opacity' : ''}`} />
                 </div>
-                <TestClassifier
-                    getClassifyResult={this.getClassifyResult}
-                    triggerClassifierResult = {this.state.triggerClassifierResult}
-                    resultClass={this.state.resultClass}
-                    resultAccuracy={this.state.resultAccuracy}
-                    className="testClassifier" />
+
+
+                <div className="testclassfier-container">
+                    <TestClassifier
+                        resultAttained = {this.state.resultAttained}
+                        getClassifyResult={this.getClassifyResult}
+                        triggerClassifierResult = {this.state.triggerClassifierResult}
+                        resultClass={this.state.resultClass}
+                        resultAccuracy={this.state.resultAccuracy}
+                        className="testClassifier"
+                    />
+                </div>
             </div>
         );
     }
