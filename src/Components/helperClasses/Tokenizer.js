@@ -1,5 +1,5 @@
-var Tokenizer = /** @class */ (function () {
-    function Tokenizer(num_words, filters, split, lower, document_count) {
+class Tokenizer{
+    constructor(num_words, filters, split, lower, document_count) {
         if (num_words === void 0) { num_words = 0; }
         if (filters === void 0) { filters = '!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n'; }
         if (split === void 0) { split = ' '; }
@@ -17,7 +17,8 @@ var Tokenizer = /** @class */ (function () {
         this.index_word = {};
         this.index_docs = {};
     }
-    Tokenizer.prototype.fit_on_texts = function (texts) {
+
+    fit_on_texts = (texts) => {
         var _this = this;
         for (var _i = 0, texts_1 = texts; _i < texts_1.length; _i++) {
             var text = texts_1[_i];
@@ -66,26 +67,30 @@ var Tokenizer = /** @class */ (function () {
             this.index_docs[this.word_index[w]] = c;
         }
     };
-    Tokenizer.prototype.texts_to_matrix = function (texts, mode) {
+
+    texts_to_matrix = (texts, mode) => {
         if (mode === void 0) { mode = 'binary'; }
         var sequences = this.texts_to_sequences(texts);
         return this.sequences_to_matrix(sequences, mode);
     };
-    Tokenizer.prototype.text_to_word_sequence = function (text) {
+
+    text_to_word_sequence = text => {
         for (var _i = 0, _a = this.filters; _i < _a.length; _i++) {
             var c = _a[_i];
             text = text.replace(new RegExp("[\\" + c + "]", 'gi'), this.split);
         }
         return text.split(this.split).filter(function (x) { return x; });
     };
-    Tokenizer.prototype.map_to_array = function (map) {
+
+    map_to_array = map => {
         var array = [];
         for (var k in map) {
             array.push([k, map[k]]);
         }
         return array;
     };
-    Tokenizer.prototype.texts_to_sequences = function (texts) {
+
+    texts_to_sequences = texts => {
         var sequences = [];
         for (var _i = 0, texts_2 = texts; _i < texts_2.length; _i++) {
             var text = texts_2[_i];
@@ -112,7 +117,8 @@ var Tokenizer = /** @class */ (function () {
         }
         return sequences;
     };
-    Tokenizer.prototype.sequences_to_matrix = function (sequences, mode) {
+
+    sequences_to_matrix = (sequences, mode) => {
         var _this = this;
         var num_words = this.num_words ? this.num_words : Object.keys(this.word_index).length;
         var x = new Array(sequences.length);
@@ -150,7 +156,6 @@ var Tokenizer = /** @class */ (function () {
         });
         return x;
     };
-    return Tokenizer;
-}());
+}
 
 export default Tokenizer;

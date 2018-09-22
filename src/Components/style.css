@@ -66,10 +66,11 @@
 .classified-data-container {
     display: flex;
     justify-content: center;
-    width: 770px;
     padding: 20px;
     overflow-y: hidden;
     overflow-x: scroll;
+    margin-left: 100px;
+    width: 760px;
 }
 
 ::-webkit-scrollbar {
