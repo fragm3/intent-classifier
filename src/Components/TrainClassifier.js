@@ -3,7 +3,6 @@ import DropZone from './DropZone'
 import './style.css';
 
 import Tokenizer from './helperClasses/Tokenizer';
-import LabelBinarizer from './helperClasses/LabelBinarizer';
 import CSVParser from './helperClasses/CSVParser';
 
 import {binarizer} from './Classifier'
@@ -76,7 +75,6 @@ class TrainClassifier extends Component{
     }
 
     startTrain = () => {
-        this.setState(() => {isTraining: true})
         tokenizer.fit_on_texts(this.state.X_train);
         const input = tokenizer.texts_to_matrix(this.state.X_train, 'tfidf');
         const output = binarizer.fit_transform(this.state.Y_train);
