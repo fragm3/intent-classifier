@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import './style.css';
-
-import Tokenizer from './helperClasses/Tokenizer';
-
-const tokenizer = new Tokenizer(2500);
+import {tokenizer}from './TrainClassifier';
 
 class ClassifiedData extends Component{
     constructor(props){
@@ -13,6 +10,9 @@ class ClassifiedData extends Component{
             startTraining: false,
             data: '',
             dataEdited: '',
+            isLoading: false,
+            resultClass: '',
+            resultAccuracy: '',
         }
     }
 
@@ -27,19 +27,28 @@ class ClassifiedData extends Component{
     }
 
     classifyData = () => {
+        let { isLoading } = this.state;
+        isLoading=false;
         var text = this.state.data;
-        debugger;
+        console.log('text',text);
         var xs = tokenizer.texts_to_matrix([text], 'tfidf');
-        debugger;
-        this.props.getClassifyResult(xs);
-        //this.setState({data : ''})
+        console.log('xs result',xs);
+        this.props.getClassifyResult(xs).then((result) => {
+            isLoading=true;
+            console.log('here is the result',result);
+            this.setState({
+                resultClass: result.resultClass,
+                resultAccuracy: result.resultAccuracy,
+            })
+        }).catch((err) => {
+            
+        });
+        this.setState({isLoading});
     }
 
     render() {
-        console.log(this.props.resultClass, "Result class")
         let renderElement = null;
         if(this.props.triggerClassifierResult === true && this.props.resultAttained === true){
-            //this.setState({isTrained: true});
             renderElement = (
                 <div>
                     <textarea placeholder="Enter your sentence here" className = "input-textarea" value={this.state.data} onChange={this.setData}>
@@ -51,8 +60,8 @@ class ClassifiedData extends Component{
                         </button>
                         <div className="result primary-text">Result</div>
                         <div className = "result-container">
-                            <div className="btn result-class" style= {{margin: '5px'}}>{this.props.resultClass}</div>
-                            <div className="btn result-confidence" style= {{margin: '5px'}}>{this.props.resultAccuracy}</div>
+                            <div className="btn result-class" style= {{margin: '5px'}}>{this.state.resultClass}</div>
+                            <div className="btn result-confidence" style= {{margin: '5px'}}>{this.state.resultAccuracy}</div>
                         </div>
                     </div>
                 </div>

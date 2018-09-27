@@ -8,7 +8,7 @@ import LabelBinarizer from './helperClasses/LabelBinarizer';
 
 import * as tf from '@tensorflow/tfjs';
 const model = tf.sequential();
-const binarizer = new LabelBinarizer();
+export const binarizer = new LabelBinarizer();
 
 class Classifier extends Component{
     constructor(props){
@@ -48,15 +48,12 @@ class Classifier extends Component{
             callbacks: {
                 onTrainBegin: (log) => {
                 console.log('Training started...');
-                //this.setState({isTraining: true});
                 },
                 onEpochEnd: (epoch, log) => {
-                //useless
                 console.log("Epoch " + epoch + ": loss = " + log.loss);
                 },
                 onTrainEnd: (log) => {
                 this.setState({triggerClassifierResult: true, addOnTopLoader: false})
-                //this.setState({isFileTrained: true});
                 console.log('...Training completed');
                 }
             }
@@ -64,23 +61,30 @@ class Classifier extends Component{
     };
 
     getClassifyResult = (xs) => {
-        var y = model.predict(tf.tensor2d(xs, [1, 2500]));
-        var res = y.dataSync();
-        var confidence = Math.max(...res);
-        var idx = res.indexOf(confidence);
-        console.log("Index", idx)
-        var top_predicted_class = binarizer.classes_[idx];
-        //debugger;
-        this.setState({resultClass: top_predicted_class, resultAccuracy: confidence.toFixed(2), resultAttained: true})
+        return new Promise((resolve,reject)=>{
+            var y = model.predict(tf.tensor2d(xs, [1, 2500]));
+            console.log('1',y);
+            var res = y.dataSync();
+            console.log('2',res);
+            var confidence = Math.max(...res);
+            console.log('confidance is chanign', confidence);
+            var idx = res.indexOf(confidence);
+            var top_predicted_class = binarizer.classes_[idx];
+            const result={
+                resultClass: top_predicted_class, 
+                resultAccuracy: confidence,
+            }
+            console.log('here is a log result', result);
+            resolve(result)
+            this.setState({resultAttained: true})
+        });
     }
 
     triggerResult = () => {
         this.setState({triggerClassifierResult: true});
-        console.log('Triggered');
     }
 
     render() {
-        console.log(this.state.addOnTopLoader)
         let renderTrainClassifier = null;
         if(this.state.addOnTopLoader){
             renderTrainClassifier = (
@@ -103,8 +107,6 @@ class Classifier extends Component{
                     </div>
                     {renderTrainClassifier}
                 </div>
-
-
                 <div className="testclassfier-container">
                     <TestClassifier
                         resultAttained = {this.state.resultAttained}

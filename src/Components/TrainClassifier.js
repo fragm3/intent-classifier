@@ -6,8 +6,9 @@ import Tokenizer from './helperClasses/Tokenizer';
 import LabelBinarizer from './helperClasses/LabelBinarizer';
 import CSVParser from './helperClasses/CSVParser';
 
-const tokenizer = new Tokenizer(2500);
-const binarizer = new LabelBinarizer();
+import {binarizer} from './Classifier'
+
+export const tokenizer = new Tokenizer(2500);
 
 class TrainClassifier extends Component{
     constructor(props){
@@ -90,7 +91,6 @@ class TrainClassifier extends Component{
     }
 
     render() {
-        console.log(this.state.isTraining)
         let tabs= [];
         let sampleData;
         if(this.state.csvData){
@@ -103,7 +103,10 @@ class TrainClassifier extends Component{
                         <div className="classified-box-long">
                             {sampleData = data.samples.map((sample, idx) => {
                                 return(
-                                    <div key ={idx} style={{padding: '10px'}}>{sample}</div>
+                                    <div>
+                                        <div className="result-sample" key ={idx}>{sample}</div>
+                                        <hr style={{borderWidth: '0.5px'}}/>
+                                    </div>
                                 )
                             })}
                         </div>
